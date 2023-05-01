@@ -5,7 +5,8 @@ on:
       - '*'
 
 env:
-  IMAGE_NAME: alfredcapital/spilo
+  REGISTRY: alfredcapital
+  IMAGE_NAME: spilo
 
 jobs:
   publish:
