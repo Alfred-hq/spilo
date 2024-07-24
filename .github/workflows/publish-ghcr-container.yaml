@@ -44,6 +44,6 @@ jobs:
       with:
         context: "postgres-appliance/"
         push: true
-        tags: ${{ env.hash }}
+        tags: ghcr.io/alfred-hq/spilo:${{ env.hash }}
         platforms: linux/amd64
 
