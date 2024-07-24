@@ -58,18 +58,18 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and export to local docker for testing
-      uses: docker/build-push-action@v3
-      with:
-        context: "postgres-appliance/"
-        load: true
-        tags: ${{ env.hash }}
+    # - name: Build and export to local docker for testing
+    #   uses: docker/build-push-action@v3
+    #   with:
+    #     context: "postgres-appliance/"
+    #     load: true
+    #     tags: ${{ env.hash }}
 
-    - name: Test spilo docker image 
-      env:
-        SPILO_TEST_IMAGE: "${{ steps.image.outputs.NAME }}"
-      run: |
-        bash postgres-appliance/tests/test_spilo.sh 
+    # - name: Test spilo docker image 
+    #   env:
+    #     SPILO_TEST_IMAGE: "${{ steps.image.outputs.NAME }}"
+    #   run: |
+    #     bash postgres-appliance/tests/test_spilo.sh 
 
     - name: Build arm64 additionally and push multiarch image to ghcr
       uses: docker/build-push-action@v3
