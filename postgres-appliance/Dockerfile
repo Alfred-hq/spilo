@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=ubuntu:22.04
-ARG PGVERSION=15
+ARG PGVERSION=16
 ARG TIMESCALEDB="2.11.2 2.14.2"
 ARG DEMO=false
 ARG COMPRESS=false
@@ -19,7 +19,7 @@ FROM $BASE_IMAGE as dependencies-builder
 
 ARG DEMO
 
-ENV WALG_VERSION=v3.0.3
+ENV WALG_VERSION=v3.0.0
 
 COPY build_scripts/dependencies.sh /builddeps/
 
@@ -45,10 +45,10 @@ COPY --from=dependencies-builder /builddeps/*.deb /builddeps/
 
 ARG PGVERSION
 ARG TIMESCALEDB
-ARG TIMESCALEDB_APACHE_ONLY=false
+ARG TIMESCALEDB_APACHE_ONLY=true
 ARG TIMESCALEDB_TOOLKIT=true
 ARG COMPRESS
-ARG PGOLDVERSIONS=""
+ARG PGOLDVERSIONS="14 15"
 ARG WITH_PERL=false
 
 ARG DEB_PG_SUPPORTED_VERSIONS="$PGOLDVERSIONS $PGVERSION"
@@ -60,7 +60,7 @@ ENV POSTGIS_VERSION=3.4 \
     PG_MON_COMMIT=a6c5982368edd876edbee01e51b91e7387071e21 \
     SET_USER=REL4_0_1 \
     PLPROFILER=REL4_2_4 \
-    PG_PROFILE=4.6 \
+    PG_PROFILE=4.5 \
     PAM_OAUTH2=v1.0.1 \
     PG_PERMISSIONS_COMMIT=314b9359e3d77c0b2ef7dbbde97fa4be80e31925
 
@@ -73,7 +73,7 @@ COPY --from=dependencies-builder /builddeps/wal-g /usr/local/bin/
 COPY build_scripts/patroni_wale.sh build_scripts/compress_build.sh /builddeps/
 
 # Install patroni and wal-e
-ENV PATRONIVERSION=3.3.3
+ENV PATRONIVERSION=3.3.2
 ENV WALE_VERSION=1.1.1
 
 WORKDIR /

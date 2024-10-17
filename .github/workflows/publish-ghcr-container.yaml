@@ -5,7 +5,7 @@ on:
       - production
 
 env:
-  REGISTRY: alfredcapital
+  REGISTRY: abhishek26102001
   IMAGE_NAME: spilo
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
       working-directory: postgres-appliance
       run: |
         PGVERSION=$(sed -n 's/^ARG PGVERSION=\([1-9][0-9]*\).*$/\1/p' Dockerfile)
-        IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-$PGVERSION:latest"
+        IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-$PGVERSION:${GITHUB_REF/refs\/tags\//}"
         echo "NAME=$IMAGE" >> $GITHUB_OUTPUT
 
     - name: Set up QEMU
