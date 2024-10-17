@@ -23,8 +23,7 @@ if [ "$USE_OLD_LOCALES" = "true" ]; then
 else
     ln -snf /usr/lib/locale/locale-archive.22 /run/locale-archive
 fi
-
-SPILO_CONFIGURATION=$(awk '{printf "%s\\n", $0}' "$SPILO_CONFIG_FILE")
+SPILO_CONFIGURATION=$(cat "$SPILO_CONFIG_FILE")
 export SPILO_CONFIGURATION="$SPILO_CONFIGURATION"
 export PATRONI_CONFIGURATION="$SPILO_CONFIGURATION"
 
