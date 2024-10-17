@@ -30,12 +30,16 @@ jobs:
     - name: Install flake8 and docker-compose
       run: python -m pip install flake8 docker-compose==1.17.1
 
+    - name: Set outputs
+      id: vars
+      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
     - name: Derive spilo image name
       id: image
       working-directory: postgres-appliance
       run: |
         PGVERSION=$(sed -n 's/^ARG PGVERSION=\([1-9][0-9]*\).*$/\1/p' Dockerfile)
-        IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-$PGVERSION:${{ github.sha:0:4}}"
+        IMAGE="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-$PGVERSION:${{ steps.vars.outputs.sha_short }}"
         echo "NAME=$IMAGE" >> $GITHUB_OUTPUT
 
     - name: Set up QEMU
@@ -72,3 +76,6 @@ jobs:
         tags: "${{ steps.image.outputs.NAME }}"
         platforms: linux/amd64
         cache-to: type=gha,mode=max
+
+
+
