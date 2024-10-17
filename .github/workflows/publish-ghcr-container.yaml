@@ -69,6 +69,6 @@ jobs:
       with:
         context: "postgres-appliance/"
         push: true
-        tags: abhishek26102001/spilo:latest
+        tags: "${{ steps.image.outputs.NAME }}"
         platforms: linux/amd64
         cache-to: type=gha,mode=max
